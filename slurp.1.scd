@@ -41,7 +41,7 @@ held, the selection is moved instead of being resized.
 	Set text color. Default is the border color. See *COLORS* for more detail.
 
 *-T* _color_
-	Set text background color. Default is #000000A0. See *COLORS* for more detail.
+	Set text background color. Default is #00000000 (transparent). See *COLORS* for more detail.
 
 *-s* _color_
 	Set selection color. Default is #00000000. See *COLORS* for more detail.

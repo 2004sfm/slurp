@@ -898,7 +898,7 @@ int main(int argc, char *argv[]) {
 			.border = BORDER_COLOR,
 			.selection = SELECTION_COLOR,
 			.choice = BG_COLOR,
-			.text_bg = 0x000000A0,
+			.text_bg = 0x00000000,
 		},
 		.border_weight = 2,
 		.display_dimensions = false,
