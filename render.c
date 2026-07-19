@@ -91,7 +91,7 @@ void render(struct slurp_output *output) {
 			double text_y = sel_box->y + (sel_box->height + extents.height) / 2;
 
 			// Draw background box
-			set_source_u32(cairo, 0x000000A0); // Black with transparency
+			set_source_u32(cairo, state->colors.text_bg);
 			cairo_rectangle(cairo, 
 					text_x - padding, 
 					text_y - extents.height - padding, 

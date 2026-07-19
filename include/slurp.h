@@ -43,6 +43,7 @@ struct slurp_state {
     uint32_t selection;
     uint32_t choice;
     uint32_t text;
+    uint32_t text_bg;
   } colors;
   bool has_text_color;
 
