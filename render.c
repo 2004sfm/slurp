@@ -79,19 +79,33 @@ void render(struct slurp_output *output) {
 					       CAIRO_FONT_SLANT_NORMAL,
 					       CAIRO_FONT_WEIGHT_NORMAL);
 			cairo_set_font_size(cairo, 14);
-			if (state->has_text_color) {
-				set_source_u32(cairo, state->colors.text);
-			} else {
-				set_source_u32(cairo, state->colors.border);
-			}
 			// buffer of 12 can hold selections up to 99999x99999
 			char dimensions[12];
 			snprintf(dimensions, sizeof(dimensions), "%ix%i",
 				 sel_box->width, sel_box->height);
 			cairo_text_extents_t extents;
 			cairo_text_extents(cairo, dimensions, &extents);
-			cairo_move_to(cairo, sel_box->x + (sel_box->width - extents.width) / 2,
-				      sel_box->y + (sel_box->height + extents.height) / 2);
+
+			double padding = 4.0;
+			double text_x = sel_box->x + (sel_box->width - extents.width) / 2;
+			double text_y = sel_box->y + (sel_box->height + extents.height) / 2;
+
+			// Draw background box
+			set_source_u32(cairo, 0x000000A0); // Black with transparency
+			cairo_rectangle(cairo, 
+					text_x - padding, 
+					text_y - extents.height - padding, 
+					extents.width + padding * 2, 
+					extents.height + padding * 2);
+			cairo_fill(cairo);
+
+			// Draw text
+			if (state->has_text_color) {
+				set_source_u32(cairo, state->colors.text);
+			} else {
+				set_source_u32(cairo, state->colors.border);
+			}
+			cairo_move_to(cairo, text_x, text_y);
 			cairo_show_text(cairo, dimensions);
 		}
 	}
