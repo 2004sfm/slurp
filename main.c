@@ -725,6 +725,7 @@ static const char usage[] =
 	"  -d           Display dimensions of selection.\n"
 	"  -b #rrggbbaa Set background color.\n"
 	"  -c #rrggbbaa Set border color.\n"
+	"  -t #rrggbbaa Set text color.\n"
 	"  -s #rrggbbaa Set selection color.\n"
 	"  -B #rrggbbaa Set option box color.\n"
 	"  -F s         Set the font family for the dimensions.\n"
@@ -910,7 +911,7 @@ int main(int argc, char *argv[]) {
 	char *format = "%x,%y %wx%h\n";
 	bool output_boxes = false;
 	int w, h;
-	while ((opt = getopt(argc, argv, "hdb:c:s:B:w:proa:f:F:x")) != -1) {
+	while ((opt = getopt(argc, argv, "hdb:c:t:s:B:w:proa:f:F:x")) != -1) {
 		switch (opt) {
 		case 'h':
 			printf("%s", usage);
@@ -923,6 +924,10 @@ int main(int argc, char *argv[]) {
 			break;
 		case 'c':
 			state.colors.border = parse_color(optarg);
+			break;
+		case 't':
+			state.colors.text = parse_color(optarg);
+			state.has_text_color = true;
 			break;
 		case 's':
 			state.colors.selection = parse_color(optarg);

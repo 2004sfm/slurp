@@ -42,7 +42,9 @@ struct slurp_state {
     uint32_t border;
     uint32_t selection;
     uint32_t choice;
+    uint32_t text;
   } colors;
+  bool has_text_color;
 
   const char *font_family;
 
