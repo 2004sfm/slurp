@@ -87,8 +87,31 @@ void render(struct slurp_output *output) {
 			cairo_text_extents(cairo, dimensions, &extents);
 
 			double padding = 4.0;
-			double text_x = sel_box->x + (sel_box->width - extents.width) / 2;
-			double text_y = sel_box->y + (sel_box->height + extents.height) / 2;
+			double text_x, text_y;
+
+			switch (state->text_alignment) {
+				case SLURP_ALIGN_CENTER:
+					text_x = sel_box->x + (sel_box->width - extents.width) / 2;
+					text_y = sel_box->y + (sel_box->height + extents.height) / 2;
+					break;
+				case SLURP_ALIGN_TOP_LEFT:
+					text_x = sel_box->x - extents.width - padding;
+					text_y = sel_box->y - padding;
+					break;
+				case SLURP_ALIGN_TOP_RIGHT:
+					text_x = sel_box->x + sel_box->width + padding;
+					text_y = sel_box->y - padding;
+					break;
+				case SLURP_ALIGN_BOTTOM_LEFT:
+					text_x = sel_box->x - extents.width - padding;
+					text_y = sel_box->y + sel_box->height + padding + extents.height;
+					break;
+				case SLURP_ALIGN_BOTTOM_RIGHT:
+				default:
+					text_x = sel_box->x + sel_box->width + padding;
+					text_y = sel_box->y + sel_box->height + padding + extents.height;
+					break;
+			}
 
 			// Draw background box
 			set_source_u32(cairo, state->colors.text_bg);

@@ -913,7 +913,7 @@ int main(int argc, char *argv[]) {
 	char *format = "%x,%y %wx%h\n";
 	bool output_boxes = false;
 	int w, h;
-	while ((opt = getopt(argc, argv, "hdb:c:t:s:B:T:w:proa:f:F:x")) != -1) {
+	while ((opt = getopt(argc, argv, "hdb:c:t:s:B:T:w:proa:f:F:xA:")) != -1) {
 		switch (opt) {
 		case 'h':
 			printf("%s", usage);
@@ -979,6 +979,22 @@ int main(int argc, char *argv[]) {
 			break;
 		case 'x':
 			state.crosshairs = true;
+			break;
+		case 'A':
+			if (strcmp(optarg, "center") == 0) {
+				state.text_alignment = SLURP_ALIGN_CENTER;
+			} else if (strcmp(optarg, "top-left") == 0) {
+				state.text_alignment = SLURP_ALIGN_TOP_LEFT;
+			} else if (strcmp(optarg, "top-right") == 0) {
+				state.text_alignment = SLURP_ALIGN_TOP_RIGHT;
+			} else if (strcmp(optarg, "bottom-left") == 0) {
+				state.text_alignment = SLURP_ALIGN_BOTTOM_LEFT;
+			} else if (strcmp(optarg, "bottom-right") == 0) {
+				state.text_alignment = SLURP_ALIGN_BOTTOM_RIGHT;
+			} else {
+				fprintf(stderr, "invalid alignment: %s\n", optarg);
+				return EXIT_FAILURE;
+			}
 			break;
 		default:
 			printf("%s", usage);
